@@ -52,6 +52,15 @@ app.post('/photos/upload', upload.array('photos', 12), async (req, res) => {
     }
 });
 
+app.get('/images', async (req, res) => {
+    try {
+        const col = await loadCollection(COLLECTION_NAME, db);
+        res.send(col.data);
+    } catch (err) {
+        res.sendStatus(400);
+    }
+});
+
 app.listen(3000, () => {
     console.log('listening on port 3000!');
 });

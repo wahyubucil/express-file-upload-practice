@@ -5,6 +5,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as Loki from 'lokijs';
 import {
+    imageFilter,
     loadCollection
 } from './utils';
 
@@ -12,7 +13,7 @@ import {
 const DB_NAME = 'db.json';
 const COLLECTION_NAME = 'images';
 const UPLOAD_PATH = 'uploads';
-const upload = multer({ dest: `${UPLOAD_PATH}/` }); // multer configuration
+const upload = multer({ dest: `${UPLOAD_PATH}/`, fileFilter: imageFilter }); // multer configuration
 const db = new Loki(`${UPLOAD_PATH}/${DB_NAME}`, { persistenceMethod: 'fs' });
 
 // app

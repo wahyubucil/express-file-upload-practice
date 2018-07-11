@@ -1,6 +1,14 @@
 import * as del from 'del';
 import { Collection } from 'lokijs';
 
+const imageFilter = function(req, file, cb) {
+    // accept image only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+
 const loadCollection = function(colname, db: Loki): Promise<Collection<any>> {
     return new Promise(resolve => {
         db.loadDatabase({}, () => {
@@ -8,6 +16,6 @@ const loadCollection = function(colname, db: Loki): Promise<Collection<any>> {
             resolve(_collection);
         });
     });
-}
+};
 
-export { loadCollection }
+export { imageFilter, loadCollection }

@@ -61,6 +61,23 @@ app.get('/images', async (req, res) => {
     }
 });
 
+app.get('/images/:id', async (req, res) => {
+    try {
+        const col = await loadCollection(COLLECTION_NAME, db);
+        const result = col.get(req.params.id);
+
+        if (!result) {
+            res.sendStatus(404);
+            return;
+        }
+
+        res.setHeader('Content-Type', result.mimetype);
+        fs.createReadStream(path.join(UPLOAD_PATH, result.filename)).pipe(res);
+    } catch (err) {
+        res.sendStatus(400);
+    }
+});
+
 app.listen(3000, () => {
     console.log('listening on port 3000!');
 });

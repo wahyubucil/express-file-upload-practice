@@ -6,7 +6,8 @@ import * as path from 'path';
 import * as Loki from 'lokijs';
 import {
     imageFilter,
-    loadCollection
+    loadCollection,
+    cleanFolder
 } from './utils';
 
 // setup
@@ -15,6 +16,9 @@ const COLLECTION_NAME = 'images';
 const UPLOAD_PATH = 'uploads';
 const upload = multer({ dest: `${UPLOAD_PATH}/`, fileFilter: imageFilter }); // multer configuration
 const db = new Loki(`${UPLOAD_PATH}/${DB_NAME}`, { persistenceMethod: 'fs' });
+
+// optional: clean all data before start
+cleanFolder(UPLOAD_PATH);
 
 // app
 const app = express();

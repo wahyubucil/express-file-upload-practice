@@ -18,4 +18,10 @@ const loadCollection = function(colname, db: Loki): Promise<Collection<any>> {
     });
 };
 
-export { imageFilter, loadCollection }
+const cleanFolder = function(folderPath) {
+    // delete files inside folder but not the folder itself
+    del.sync([`${folderPath}/**`, `!${folderPath}`]);
+
+};
+
+export { imageFilter, loadCollection, cleanFolder }

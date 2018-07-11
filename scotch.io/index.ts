@@ -24,6 +24,20 @@ cleanFolder(UPLOAD_PATH);
 const app = express();
 app.use(cors());
 
+app.get('/', async (req, res) => {
+    // default route
+    res.send(`
+        <h1>Demo file upload</h1>
+        <p>Please refer to <a href="https://scotch.io/tutorials/express-file-uploads-with-multer">this awesome tutorial</a> for details.</p>
+        <ul>
+            <li>GET /images   - list all upload images</li>
+            <li>GET /images/{id} - get one uploaded image</li>
+            <li>POST /profile - handle single image upload</li>
+            <li>POST /photos/upload - handle multiple images upload</li>
+        </ul>
+    `);
+});
+
 app.post('/profile', upload.single('avatar'), async (req, res) => {
     try {
         const col = await loadCollection(COLLECTION_NAME, db);
